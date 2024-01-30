@@ -2,6 +2,7 @@
 <Project>
 
   <PropertyGroup>
+    <Authors>Nigel Whatling; https://github.com/orgs/DbUp/people</Authors>
     <PackageReleaseNotes>https://github.com/n-vision/dbup-mysql-mysqlconnector/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://dbup.github.io</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
