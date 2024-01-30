@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbup-mysql-mysqlconnector", "dbup-mysql-mysqlconnector\dbup-mysql-mysqlconnector.csproj", "{2A7189BD-96CE-41CA-9100-E1B1DD10FF40}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbup-mysql-mysqlconnector", "dbup-mysql-mysqlconnector\dbup-mysql-mysqlconnector.csproj", "{2A7189BD-96CE-41CA-9100-E1B1DD10FF40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8CE634FE-6772-408E-9340-909F6218F8F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{8CE634FE-6772-408E-9340-909F6218F8F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{2BB18839-D96E-4697-902D-1900A6B75F69}"
 	ProjectSection(SolutionItems) = preProject
@@ -40,9 +43,15 @@ Global
 		{8CE634FE-6772-408E-9340-909F6218F8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE634FE-6772-408E-9340-909F6218F8F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{62E5FE92-E288-4E09-964D-F92AF0E49131} = {5DA19CA9-8039-46D6-B474-021943582785}
-		{77157734-01DA-4AA3-A15C-504013343B29} = {2BB18839-D96E-4697-902D-1900A6B75F69}
 		{5DA19CA9-8039-46D6-B474-021943582785} = {2BB18839-D96E-4697-902D-1900A6B75F69}
+		{77157734-01DA-4AA3-A15C-504013343B29} = {2BB18839-D96E-4697-902D-1900A6B75F69}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D04D9BD2-3142-49DA-94B1-195843545A51}
 	EndGlobalSection
 EndGlobal
