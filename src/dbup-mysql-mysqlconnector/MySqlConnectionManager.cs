@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DbUp.Engine.Transactions;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace DbUp.MySql
 {
@@ -13,7 +13,7 @@ namespace DbUp.MySql
         /// Creates a new MySql database connection.
         /// </summary>
         /// <param name="connectionString">The MySql connection string.</param>
-        public MySqlConnectionManager(string connectionString) : base(new DelegateConnectionFactory(l => new MySqlConnection(connectionString)))
+        public MySqlConnectionManager(string connectionString) : base(new DelegateConnectionFactory(_ => new MySqlConnection(connectionString)))
         {
         }
 
@@ -25,8 +25,7 @@ namespace DbUp.MySql
         public override IEnumerable<string> SplitScriptIntoCommands(string scriptContents)
         {
             var commandSplitter = new MySqlCommandSplitter();
-            var scriptStatements = commandSplitter.SplitScriptIntoCommands(scriptContents);
-            return scriptStatements;
+            return commandSplitter.SplitScriptIntoCommands(scriptContents);
         }
     }
 }

@@ -1,45 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>DbUp makes it easy to deploy and upgrade SQL Server databases. This package adds MySql support.</Description>
-    <Title>DbUp MySql Support</Title>
-    <Company>DbUp Contributors</Company>
+    <Description>DbUp makes it easy to deploy and upgrade SQL Server databases. This package adds MySql support using MySqlConnector.</Description>
+    <Title>DbUp MySql Support using MySqlConnector</Title>
+    <Company>N-Vision Digital Solutions</Company>
     <Product>DbUp</Product>
-    <Copyright>Copyright © DbUp Contributors 2015</Copyright>
-    <TargetFrameworks>netstandard1.3;netstandard2.0;net462</TargetFrameworks>
+    <Copyright>Copyright © N-Vision Digital Solutions 2024; Copyright © DbUp Contributors 2015</Copyright>
+    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <AssemblyName>dbup-mysql</AssemblyName>
     <RootNamespace>DbUp.MySql</RootNamespace>
-    <PackageId>dbup-mysql</PackageId>
+    <PackageId>dbup-mysql-mysqlconnector</PackageId>
     <AssemblyOriginatorKeyFile>../dbup.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <RepositoryUrl>https://github.com/DbUp/dbup-mysql.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/n-vision/dbup-mysql-mysqlconnector.git</RepositoryUrl>
     <PackageIcon>dbup-icon.png</PackageIcon>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net462'">
-    <DefineConstants>$(DefineConstants);MY_SQL_DATA_6_9_5</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="dbup-core" Version="5.0.37"/>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" NoWarn="NU1903"/>
+    <PackageReference Include="dbup-core" Version="5.0.37" />
+	<PackageReference Include="MySqlConnector" Version="2.3.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" NoWarn="NU1903" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
-    <Reference Include="System"/>
-    <PackageReference Include="MySql.Data" Version="6.9.5"/>
-    <!-- last version to support < .NET 4.5.2. -->
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
-    <PackageReference Include="MySql.Data" Version="6.10.9"/>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="MySql.Data" Version="8.0.33"/>
+    <Reference Include="System" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Visible="false" Include="../dbup-icon.png" Pack="True" PackagePath=""/>
+    <None Visible="false" Include="../dbup-icon.png" Pack="True" PackagePath="" />
   </ItemGroup>
 </Project>

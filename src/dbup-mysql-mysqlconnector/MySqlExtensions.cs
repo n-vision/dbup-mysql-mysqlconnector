@@ -6,12 +6,14 @@ using DbUp.Builder;
 using DbUp.Engine.Output;
 using DbUp.Engine.Transactions;
 using DbUp.MySql;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 /// <summary>
 /// Configuration extension methods for MySql.
 /// </summary>
 // ReSharper disable once CheckNamespace
+#pragma warning disable S3903 // Types should be defined in named namespaces
+#pragma warning disable RCS1110 // Declare type inside namespace
 public static class MySqlExtensions
 {
     /// <summary>
@@ -24,10 +26,14 @@ public static class MySqlExtensions
     /// </returns>
     public static UpgradeEngineBuilder MySqlDatabase(this SupportedDatabases supported, string connectionString)
     {
-        foreach (var pair in connectionString.Split(';').Select(s => s.Split('=')).Where(pair => pair.Length == 2).Where(pair => pair[0].ToLower() == "database"))
+#pragma warning disable S1751 // Loops with at most one iteration should be refactored
+        foreach (var pair in connectionString.Split(';')
+                                                    .Select(s => s.Split('='))
+                                                    .Where(pair => pair.Length == 2 && string.Equals(pair[0], "database", StringComparison.OrdinalIgnoreCase)))
         {
             return MySqlDatabase(new MySqlConnectionManager(connectionString), pair[1]);
         }
+#pragma warning restore S1751 // Loops with at most one iteration should be refactored
 
         return MySqlDatabase(new MySqlConnectionManager(connectionString));
     }
@@ -155,28 +161,30 @@ public static class MySqlExtensions
 
         try
         {
-            using (var connection = new MySqlConnection(masterConnectionString))
+            using var connection = new MySqlConnection(masterConnectionString);
+            connection.Open();
+            if (DatabaseExists(connection, databaseName))
             {
-                connection.Open();
-                if (DatabaseExists(connection, databaseName))
-                    return;
+                return;
             }
         }
         catch (Exception e)
         {
-            logger.WriteInformation(@"Database not found on server with connection string in settings: {0}", e.Message);
+            logger.WriteInformation("Database not found on server with connection string in settings: {0}", e.Message);
         }
 
         using (var connection = new MySqlConnection(masterConnectionString))
         {
             connection.Open();
             if (DatabaseExists(connection, databaseName))
+            {
                 return;
+            }
 
-            var collationString = string.IsNullOrEmpty(collation) ? "" : string.Format(@" COLLATE {0}", collation);
+            var collationString = string.IsNullOrEmpty(collation) ? string.Empty : string.Format(" COLLATE {0}", collation);
             var sqlCommandText = string.Format
                     (
-                        @"create database {0}{1};",
+                        "create database {0}{1};",
                         databaseName,
                         collationString
                     );
@@ -195,7 +203,7 @@ public static class MySqlExtensions
                 command.ExecuteNonQuery();
             }
 
-            logger.WriteInformation(@"Created database {0}", databaseName);
+            logger.WriteInformation("Created database {0}", databaseName);
         }
     }
 
@@ -207,29 +215,34 @@ public static class MySqlExtensions
         );
 
         // check to see if the database already exists..
-        using (var command = new MySqlCommand(sqlCommandText, connection)
+        using var command = new MySqlCommand(sqlCommandText, connection)
         {
             CommandType = CommandType.Text
-        })
-        {
-            var result = command.ExecuteScalar();
-            return result != null;
-        }
+        };
+
+        var result = command.ExecuteScalar();
+        return result != null;
     }
 
     static void GetMysqlConnectionStringBuilder(string connectionString, IUpgradeLog logger, out string masterConnectionString, out string databaseName)
     {
-        if (string.IsNullOrEmpty(connectionString) || connectionString.Trim() == string.Empty)
-            throw new ArgumentNullException("connectionString");
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new ArgumentNullException(nameof(connectionString));
+        }
 
         if (logger == null)
-            throw new ArgumentNullException("logger");
+        {
+            throw new ArgumentNullException(nameof(logger));
+        }
 
         var masterConnectionStringBuilder = new MySqlConnectionStringBuilder(connectionString);
         databaseName = masterConnectionStringBuilder.Database;
 
-        if (string.IsNullOrEmpty(databaseName) || databaseName.Trim() == string.Empty)
+        if (string.IsNullOrWhiteSpace(databaseName))
+        {
             throw new InvalidOperationException("The connection string does not specify a database name.");
+        }
 
         masterConnectionStringBuilder.Database = "mysql";
         masterConnectionString = masterConnectionStringBuilder.ConnectionString;

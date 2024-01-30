@@ -4,7 +4,7 @@ using DbUp.Engine;
 using DbUp.Engine.Output;
 using DbUp.Engine.Transactions;
 using DbUp.Support;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace DbUp.MySql
 {
@@ -33,21 +33,16 @@ namespace DbUp.MySql
             throw new NotSupportedException();
         }
 
-        protected override void ExecuteCommandsWithinExceptionHandler(int index, SqlScript script, Action executeCommand)
+        protected override void ExecuteCommandsWithinExceptionHandler(int index, SqlScript script, Action executeCallback)
         {
             try
             {
-                executeCommand();
+                executeCallback();
             }
             catch (MySqlException exception)
             {
-#if MY_SQL_DATA_6_9_5
-                var code = exception.ErrorCode;
-#else
-                var code = exception.Code;
-#endif
                 Log().WriteInformation("MySql exception has occurred in script: '{0}'", script.Name);
-                Log().WriteError("Script block number: {0}; MySql error code: {1}; Number {2}; Message: {3}", index, code, exception.Number, exception.Message);
+                Log().WriteError("Script block number: {0}; MySql error code: {1}; Number {2}; Message: {3}", index, exception.ErrorCode, exception.Number, exception.Message);
                 Log().WriteError(exception.ToString());
                 throw;
             }
