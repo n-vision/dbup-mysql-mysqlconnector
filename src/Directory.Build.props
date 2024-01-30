@@ -2,9 +2,10 @@
 <Project>
 
   <PropertyGroup>
-    <PackageReleaseNotes>https://github.com/n-vision/dbup-mysql-mysqlconnection/releases</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/n-vision/dbup-mysql-mysqlconnector/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://dbup.github.io</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/n-vision/dbup-mysql-mysqlconnector.git</RepositoryUrl>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
