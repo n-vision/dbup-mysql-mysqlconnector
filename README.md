@@ -1,4 +1,4 @@
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/n-vision/dbup-mysql-mysqlconnector/CI/main)](https://github.com/n-vision/dbup-mysql-mysqlconnector/actions/workflows/main.yml?query=branch%3Amain)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/n-vision/dbup-mysql-mysqlconnector/main.yml?branch=main)](https://github.com/n-vision/dbup-mysql-mysqlconnector/actions/workflows/main.yml?query=branch%3Amain)
 [![NuGet](https://img.shields.io/nuget/dt/dbup-mysql-mysqlconnector.svg)](https://www.nuget.org/packages/dbup-mysql-mysqlconnector)
 [![NuGet](https://img.shields.io/nuget/v/dbup-mysql-mysqlconnector.svg)](https://www.nuget.org/packages/dbup-mysql-mysqlconnector)
 [![Prerelease](https://img.shields.io/nuget/vpre/dbup-mysql-mysqlconnector?color=orange&label=prerelease)](https://www.nuget.org/packages/dbup-mysql-mysqlconnector)
