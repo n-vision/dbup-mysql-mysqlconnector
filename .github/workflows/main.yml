@@ -62,7 +62,7 @@ jobs:
 
       - name: Push NuGet packages to GitHub Packages ⬆️
         working-directory: artifacts
-        run: dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/DbUp/index.json"
+        run: dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/n-vision/index.json"
 
       - name: Push NuGet packages to NuGet ⬆️
         if: ${{ steps.gitversion.outputs.preReleaseLabel == '' }}

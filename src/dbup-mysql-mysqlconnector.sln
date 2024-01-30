@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{2BB18839-D96E-46
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
+		Directory.Build.props = Directory.Build.props
 		..\license.txt = ..\license.txt
 		..\README.md = ..\README.md
 	EndProjectSection
